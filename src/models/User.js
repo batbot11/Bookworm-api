@@ -19,6 +19,12 @@ schema.methods.generateJWT = function generateJWT() {
     confirmed: this.confirmed
     }, process.env.JWT_SECRET)
 }
+schema.methods.generateResetPasswordToken = function generateResetPasswordToken() {
+    return jwt.sign({ _id: this._id
+    }, process.env.JWT_SECRET,
+  {expiresIn: "1h"}
+    )
+}
 
 schema.methods.setPassword = function setPassword(password) {
   return this.passwordHash = bcrypt.hashSync(password, 10)
@@ -29,6 +35,9 @@ schema.methods.setConfirmationToken = function setConfirmationToken() {
 
 schema.methods.generateConfirmationURL = function generateConfirmationURL() {
   return `${process.env.HOST}/confirmation/${this.confirmationToken}`
+}
+schema.methods.generateResetPasswordLink = function generateResetPasswordLink() {
+  return `${process.env.HOST}/reset_password/${this.generateResetPasswordToken()}`
 }
 
 schema.methods.toAuthJson = function toAuthJson() {

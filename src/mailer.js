@@ -12,7 +12,7 @@ function setup() {
         })
 }
 
-export default function sendConfirmationEmail(user) {
+export function sendConfirmationEmail(user) {
     const transport = setup();
     const email = {
         from,
@@ -20,6 +20,18 @@ export default function sendConfirmationEmail(user) {
         text: `Welcome to Bookworm! Please confirm your email to continue.
         
         ${user.generateConfirmationURL()}
+        `
+    }
+    transport.sendMail(email);
+}
+export function sendResetPasswordEmail(user) {
+    const transport = setup();
+    const email = {
+        from,
+        to: user.email,
+        text: `To reset password clink on the link below
+        
+        ${user.generateResetPasswordLink()}
         `
     }
     transport.sendMail(email);

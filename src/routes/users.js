@@ -1,7 +1,7 @@
 import express from "express";
 import User from "../models/User";
 import ParseErrors from "../utils/ParseErrors";
-import sendConfirmationEmail from "../mailer"; 
+import {sendConfirmationEmail} from "../mailer"; 
 
 const router = express.Router();
 
